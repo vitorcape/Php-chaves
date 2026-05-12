@@ -52,3 +52,25 @@ CREATE TABLE posts (
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+
+CREATE TABLE iot_devices (
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    device_id   VARCHAR(64)  NOT NULL UNIQUE,          -- ex: "esp32-sala"
+    button      TINYINT(1)   NOT NULL DEFAULT 0,       -- estado do botão físico
+    led         TINYINT(1)   NOT NULL DEFAULT 0,       -- estado atual do LED
+    last_seen   DATETIME     DEFAULT NULL,             -- último contato
+    created_at  DATETIME     DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE iot_commands (
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    device_id   VARCHAR(64)  NOT NULL,
+    command     VARCHAR(64)  NOT NULL,                 -- ex: "led"
+    value       TINYINT      NOT NULL DEFAULT 0,       -- 0 ou 1
+    executed    TINYINT(1)   NOT NULL DEFAULT 0,
+    created_at  DATETIME     DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_device_pending (device_id, executed)
+);
+ 
+-- Dispositivo padrão para testes
+INSERT IGNORE INTO iot_devices (device_id) VALUES ('esp32-01');
