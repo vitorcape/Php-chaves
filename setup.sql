@@ -3,11 +3,11 @@
 -- Execute no phpMyAdmin ou via MySQL CLI
 -- ============================================================
 
-CREATE DATABASE IF NOT EXISTS crud_app
+CREATE DATABASE IF NOT EXISTS projeto_chaves
     CHARACTER SET utf8mb4
     COLLATE utf8mb4_unicode_ci;
 
-USE crud_app;
+USE projeto_chaves;
 
 -- ----------------------------------------
 -- Tabela: users
